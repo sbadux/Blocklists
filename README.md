@@ -27,3 +27,32 @@ The 2 simple scripts allows you to download iBlocklists' list and save them in .
 2) Make sure that no other .txt file is saved on that folder (or it will be merged)
 3) move to the folder where you want to save the .dat/.p2p file (eg. `cd /home/.aMule/`)
 4) run the script (eg. `python3 blocklist_dat.py`)
+
+
+#### WHERE TO SAVE THE .DAT/.P2P:
+
+- aMule: save the .dat file to `/home/USER/.aMule/`
+- qBittorrent: open qBittorrent and go to `Tools > Options > Connection > IP filtering` select the path of the file and refresh (DON'T USE THE .DAT FILE BECAUSE IT'S NOT CORRECTLY DETECTED. USE THE .P2P FILE)
+
+
+#### HOW TO MODIFY THE SCRIPT: ####
+It's really simple to add the lists you want or remove the defalut lists. You just need to add/remove the following strings in the proprer section of the script:
+
+- Section: "Download the file from url and save it locally under file_name"
+
+`urllib.request.urlretrieve("LIST_URL", "CUSTOM_LIST_NAME.GZ")`
+
+- Section: "Unzip the GZ"
+
+`with gzip.open("CUSTOM_LIST_NAME.GZ", 'rb') as infile:
+        with open("CUSTOM_TXT_NAME.txt", 'wb') as outfile:
+            for line in infile:
+                outfile.write(line)`
+
+- Section: "Delete GZ files"
+
+`os.remove("CUSTOM_LIST_NAME.GZ")`
+
+- Section: "CUSTOM_TXT_NAME.GZ"
+
+`os.remove("CUSTOM_TXT_NAME.txt")`
